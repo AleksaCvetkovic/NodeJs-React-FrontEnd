@@ -3,23 +3,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Alert, Button, Card, Col, Container, Form } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
-import api, { ApiResponse, saveToken,saveRefreshToken } from '../../api/api';
+import api, { ApiResponse, saveToken,saveRefreshToken, saveIdentety } from '../../api/api';
 
 
-interface UserLoginPageState {
-    email: string;
+interface AdministratorLoginPageState {
+    username: string;
     password: string;
     errorMesage: string;
     isLoggedIn: boolean;
 }
 
-export default class UserLogin extends React.Component{
-    state: UserLoginPageState;
+export default class AdministratorLogin extends React.Component{
+    state: AdministratorLoginPageState;
 
     constructor(props: {} | Readonly<{}>){
         super(props);
         this.state = {
-            email: '',
+            username: '',
             password: '',
             errorMesage: '',
             isLoggedIn: false,
@@ -48,8 +48,8 @@ export default class UserLogin extends React.Component{
     }
 
     private doLogin() {
-      api('auth/user/login', 'post',{
-          email: this.state.email,
+      api('auth/administrator/login', 'post',{
+          username: this.state.username,
           password: this.state.password,
       })
       .then((res: ApiResponse) => {
@@ -62,15 +62,16 @@ export default class UserLogin extends React.Component{
             if(res.data.statusCode !== undefined){
                 let message = '';
                 switch (res.data.statusCode){
-                    case -3001: message = 'Bad email';break;
+                    case -3001: message = 'Bad username';break;
                     case -3002: message = 'Bad password';break;
                 }
                 this.setErrorMesage(message);
 
                 return;
             }
-            saveToken('user',res.data.token);
-            saveRefreshToken('user',res.data.refreshToken);
+            saveToken('administrator',res.data.token);
+            saveRefreshToken('administrator',res.data.refreshToken);
+            saveIdentety('administrator', res.data.identity);
 
             this.setLogginState(true);
         }
@@ -89,13 +90,13 @@ export default class UserLogin extends React.Component{
             <Card>
                 <Card.Body>
                     <Card.Title>
-                    <FontAwesomeIcon icon={ faSignInAlt } />user Login
+                    <FontAwesomeIcon icon={ faSignInAlt } />Admin Login
                     </Card.Title>
                         <Form>
                             <Form.Group>
-                                <Form.Label htmlFor="email">E= mail</Form.Label>
-                                <Form.Control type="email" id="email"
-                                            value={this.state.email}
+                                <Form.Label htmlFor="username">username</Form.Label>
+                                <Form.Control type="txt" id="username"
+                                            value={this.state.username}
                                             onChange={  event => this.formInputChange(event as any) }/>
                             </Form.Group>
                             <Form.Group>

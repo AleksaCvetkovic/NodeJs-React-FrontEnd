@@ -12,6 +12,8 @@ import {  HashRouter, Route, Switch } from 'react-router-dom';
 import HomePage from './components/HomePage/HomePage';
 import COntactPage from './components/ContactPage/contactPage';
 import UserLogin from './components/userLogin/userLoginPage';
+import { UserRegistrationPage } from './components/userRegistretion/userRegistrationPage';
+import AdministratorLogin from './components/AdministratorLogin/administratorLoginPage';
 
 
 
@@ -19,6 +21,8 @@ const manuItems = [
   new MainManuItem("home","/" ),
   new MainManuItem("Contact","/contact/" ),
   new MainManuItem("Log in","/user/login/" ),
+  new MainManuItem("Register","/user/register/" ),
+  new MainManuItem("Log in Admin","/administrator/login/" ),
 ];
 
 
@@ -30,6 +34,8 @@ ReactDOM.render(
         <Route exact path="/" component={HomePage}/>
         <Route  path="/contact/" component={COntactPage}/>
         <Route  path="/user/login/" component={UserLogin}/>
+        <Route  path="/user/register/" component={UserRegistrationPage}/>
+        <Route  path="/administrator/login/" component={AdministratorLogin}/>
       </Switch>
     </HashRouter>
   </React.StrictMode>,
