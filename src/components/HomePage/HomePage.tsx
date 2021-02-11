@@ -1,16 +1,16 @@
 import React from 'react';
-
-import './App.css';
 import {  Container } from 'react-bootstrap';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-function App() {
+
+function HomePage() {
   return (
-    <Container className="App">
-      <FontAwesomeIcon icon={ faHome } />home
+    <Container className="HomePage">
+      <FontAwesomeIcon icon={ faHome } />Pocetna strnica
     </Container>
   );
 }
 
-export default App;
+
+export default HomePage;
